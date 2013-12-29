@@ -26,7 +26,7 @@ db.init(true, function () {
             var court = cache.courts[jca.court_id];
             var judge = cache.judges[jca.judge_id];
 
-            var assignment = db.Assignment.build({ start: new Date(), finish: null });
+            var assignment = db.Assignment.build({ start: new Date(), finish: null, stats: jca.stats });
             assignment.save().success(function () {
                 assignment.setCourt(court);
                 assignment.setJudge(judge);
