@@ -33,8 +33,7 @@ module.exports.court_judges = function (req, res, next) {
     var id = req.params.id;
 
     db.Assignment.findAll({where: { courtid:id }, include: [db.Judge] }).success(function (assignments) {
-        var judges = assignments.map(function (o) { return o.judge; });
-        res.send(judges);
+        res.send(assignments);
     });
 
     return next();
@@ -62,8 +61,7 @@ module.exports.judge_assignments = function (req, res, next) {
     var id = req.params.id;
 
     db.Assignment.findAll({where: { JudgeId:id }, include: [db.Court] }).success(function (assignments) {
-        var courts = assignments.map(function (o) { return o.court; });
-        res.send(courts);
+        res.send(assignments);
     });
 
     return next();
