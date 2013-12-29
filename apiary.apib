@@ -1,0 +1,243 @@
+FORMAT: 1A
+HOST: http://litju.empathic.io
+
+# LitJu API
+The LitJu API contains public data obtained from the Lithuanian Judiciary, including courts, judges, and statistics.
+
+# Group Courts
+Court data includes records from district, county, appelate, and higher courts. 
+
+## Courts Collection [/courts/{type}]
+An array of all courts matching the given criteria.
+
++ Parameters
+    + type (optional, string, `district`) ... Court type to retrieve
+
++ Model (application/json)
+
+        [{ 
+            "id":68, 
+            "name":"Vilniaus m.", 
+            "type":"district",
+            "stats":{
+                "workdays":11446,
+                "workload":70.51476190476193,
+                "cases":{
+                    "criminal":{ "total":1534, "len_lt6m":1326, "len_6m12m":146, "len_gt12m":62, "len_avg":2.61 },
+                    "civil":{ "total":21384, "len_lt6m":19840, "len_6m12m":1144, "len_gt12m":400, "len_avg":1.84 },
+                    "admin":{ "total":7792, "len_lt6m":0, "len_6m12m":0, "len_gt12m":0, "len_avg":0 }
+                }
+            },
+            "createdAt":"2013-12-29T18:53:22.000Z",
+            "updatedAt":"2013-12-29T18:53:22.000Z"
+        },
+        {
+            "id": 69, 
+            "name": "Kauno m.", 
+            "type": "district",
+            "stats": {
+                "workdays":6663,
+                "workload":64.8952380952381,
+                "cases":{
+                    "criminal": { "total": 1402, "len_lt6m": 1166,"len_6m12m": 158,"len_gt12m": 78, "len_avg": 3.11 },
+                    "civil": { "total": 11283, "len_lt6m": 10476,"len_6m12m": 600, "len_gt12m": 207, "len_avg": 1.66 },
+                    "admin": { "total": 4380, "len_lt6m": 0,"len_6m12m": 0,"len_gt12m": 0,"len_avg": 0 }
+                }
+            },
+            "createdAt": "2013-12-29T18:53:22.000Z",
+            "updatedAt": "2013-12-29T18:53:22.000Z"
+        }]
+
+### List all Courts [GET]
++ Response 200 (application/json)
+
+    [Courts Collection][]
+        
+        
+## Court [/courts/{id}]
+A single Court object with all its properties,
+
+    - id: The government-assigned court ID
+    - name: The court's official name
+    - type: The court's classification
+    - stats: All known statistics about the court
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Court to perform action with.
+
++ Model (application/json)
+
+        { 
+            "id":68, 
+            "name":"Vilniaus m.", 
+            "type":"district",
+            "stats":{
+                "workdays":11446,
+                "workload":70.51476190476193,
+                "cases":{
+                    "criminal":{ "total":1534, "len_lt6m":1326, "len_6m12m":146, "len_gt12m":62, "len_avg":2.61 },
+                    "civil":{ "total":21384, "len_lt6m":19840, "len_6m12m":1144, "len_gt12m":400, "len_avg":1.84 },
+                    "admin":{ "total":7792, "len_lt6m":0, "len_6m12m":0, "len_gt12m":0, "len_avg":0 }
+                }
+            },
+            "createdAt":"2013-12-29T18:53:22.000Z",
+            "updatedAt":"2013-12-29T18:53:22.000Z"
+        }
+        
+
+### Retrieve a Court [GET]
++ Response 200 (application/json)
+        
+    [Court][]
+
+## Court Judge Assignments [/courts/{id}/judges]
+A list of all judges assigned to a given court. Includes,
+
+    - id: Unique assignment ID
+    - judge: Full judge details
+    - start: Date judge was assigned to the court
+    - finish: Date judge left the court. null value indicates current assignment.
+    
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Court to perform action with.
+
++ Model (application/json)
+
+        [{
+            "id": 1,
+            "start": "2013-12-29T18:49:34.000Z"
+            "finish": null,
+            "judge": [Judge],
+            "createdAt":"2013-12-29T18:53:22.000Z",
+            "updatedAt":"2013-12-29T18:53:22.000Z"
+        },
+            "id": 1,
+            "start": "2013-12-29T18:49:34.000Z"
+            "finish": null,
+            "judge": [Judge],
+            "createdAt":"2013-12-29T18:53:22.000Z",
+            "updatedAt":"2013-12-29T18:53:22.000Z"
+
+        }]
+
+### Retrieve Court Judge Assignments [GET]
++ Response 200 (application/json)
+
+    [Court Judge Assignments][]
+    
+# Group Judges
+Judge data includes judge records from all courts.
+
+## Judges Collection [/judges]
+An array of all judges matching the given criteria.
+
++ Model (application/json)
+
+        [{ 
+            "id": 71, 
+            "name":"Regina Gutauskienė", 
+            "stats":{
+                "workdays":25,
+                "workload":18.31,
+                "cases":{
+                    "criminal":{ "total": 0, "len_lt6m": 0, "len_6m12m": 0, "len_gt12m": 0, "len_avg": 0 },
+                    "civil":{ "total":12, "len_lt6m": 0, "len_6m12m": 0, "len_gt12m": 0, "len_avg": 0 },
+                    "admin":{ "total": 0, "len_lt6m": 0, "len_6m12m": 0, "len_gt12m": 0, "len_avg": 0 }
+                }
+            },
+            "createdAt":"2013-12-29T18:53:22.000Z",
+            "updatedAt":"2013-12-29T18:53:22.000Z"
+        },
+        {
+            "id": 72, 
+            "name":"Tomas Zdanavičius", 
+            "stats":{
+                "workdays": 36,
+                "workload": 4.2,
+                "cases":{
+                    "criminal":{ "total": 18, "len_lt6m": 0, "len_6m12m": 0, "len_gt12m": 0, "len_avg": 0 },
+                    "civil":{ "total": 0, "len_lt6m": 0, "len_6m12m": 0, "len_gt12m": 0, "len_avg": 0 },
+                    "admin":{ "total": 6, "len_lt6m": 0, "len_6m12m": 0, "len_gt12m": 0, "len_avg": 0 }
+                }
+            },
+            "createdAt":"2013-12-29T18:53:22.000Z",
+            "updatedAt":"2013-12-29T18:53:22.000Z"
+        }]
+
+### List all Judges [GET]
++ Response 200 (application/json)
+
+    [Judges Collection][]
+        
+        
+## Judge [/judges/{id}]
+A single Judge object with all its properties,
+
+    - id: The government-assigned judge ID
+    - name: The court's official name
+    - stats: All known statistics about the court
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Judge to perform action with.
+
++ Model (application/json)
+
+        { 
+            "id": 71, 
+            "name":"Regina Gutauskienė", 
+            "stats":{
+                "workdays":25,
+                "workload":18.31,
+                "cases":{
+                    "criminal":{ "total": 0, "len_lt6m": 0, "len_6m12m": 0, "len_gt12m": 0, "len_avg": 0 },
+                    "civil":{ "total":12, "len_lt6m": 0, "len_6m12m": 0, "len_gt12m": 0, "len_avg": 0 },
+                    "admin":{ "total": 0, "len_lt6m": 0, "len_6m12m": 0, "len_gt12m": 0, "len_avg": 0 }
+                }
+            },
+            "createdAt":"2013-12-29T18:53:22.000Z",
+            "updatedAt":"2013-12-29T18:53:22.000Z"
+        }
+        
+
+### Retrieve a Judge [GET]
++ Response 200 (application/json)
+        
+    [Judge][]
+
+## Judge Court Assignments [/judges/{id}/assignments]
+A list of all courts the given judge has been assigned to. Includes,
+
+    - id: Unique assignment ID
+    - start: Date judge was assigned to the court
+    - finish: Date judge left the court. null value indicates current assignment.
+    - court: Full court details.
+    
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Judge to perform action with.
+
++ Model (application/json)
+
+        [{
+            "id": 1,
+            "start": "2013-12-29T18:49:34.000Z"
+            "finish": null,
+            "court": [Court],
+            "createdAt":"2013-12-29T18:53:22.000Z",
+            "updatedAt":"2013-12-29T18:53:22.000Z"
+        },
+            "id": 1,
+            "start": "2013-12-29T18:49:34.000Z"
+            "finish": null,
+            "court": [Court],
+            "createdAt":"2013-12-29T18:53:22.000Z",
+            "updatedAt":"2013-12-29T18:53:22.000Z"
+        }]
+
+### Retrieve Judge Court Assignments [GET]
++ Response 200 (application/json)
+
+    [Judge Court Assignments][]
+    
+
+        
+        
