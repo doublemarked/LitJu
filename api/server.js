@@ -11,6 +11,8 @@ var server = restify.createServer({
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
+server.use(restify.CORS());
+server.use(restify.fullResponse());
 // Always unicode
 server.use(function (req, res, next) {
     res.charSet('utf8');
