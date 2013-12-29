@@ -1,0 +1,19 @@
+{
+  "name": "LitJu",
+  "description": "Lithuanian judicial source dataset, data parser, and minimal REST API",
+  "version": "0.1.0",
+  "author": "Heath Morrison",
+  "scripts": {
+    "start": "node api/server.js",
+    "prepublish": "node patchwork/patchwork.js data/ > data/json/all.json && node api/import.js data/json/all.json"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "async": "~0.2.9",
+    "mysql": "~2.0.0-rc2",
+    "restify": "~2.6.1",
+    "sequelize": "~2.0.0-beta.2",
+    "lodash": "~2.4.1",
+    "csv": "~0.3.6"
+  }
+}

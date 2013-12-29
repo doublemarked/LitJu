@@ -1,0 +1,9 @@
+{
+    "port": 80,
+    "db": {
+        "database": "litju",
+        "username": "",
+        "password": ""
+    }
+}
+
